@@ -5,6 +5,7 @@
 #include <string.h>
 
 #define BUFSIZE 256
+#define CMD_SWITCH 's'
 #define LINESIZE 4096
 #define MIN_ARGS 1
 #define MAX_SCORES 32
@@ -60,14 +61,14 @@ void printLine(Scores *ss) {
 
 void switchScore(Scores *ss) {
 
-/* Read from a different score after current one finishes. */
+/* Read from a different score after current one finishes, or loop current. */
 
-  int ix = atoi(ss->cmd) - 1;
+  int ix = atoi(ss->cmd + 1) - 1;
   if (ix < 0 || ix >= ss->size) {
     warnx("%d is not within range [0:%d]", ix + 1, ss->size);
     return;
   }
-  ss->next = ix;
+  if (ix == ss->ix) { rewind(ss->scores[ss->ix]); } else { ss->next = ix; }
 }
 
 
@@ -75,7 +76,7 @@ int main(int argc, char **argv) {
   Scores ss = makeScores(argc, argv);
   while (1) {
     fgets(ss.cmd, BUFSIZE, stdin);
-    if (strlen(ss.cmd) == 0) { printLine(&ss); } else { switchScore(&ss); }
+    if (*ss.cmd == CMD_SWITCH) { switchScore(&ss); } else { printLine(&ss); }
   }
     return 0;
 }
