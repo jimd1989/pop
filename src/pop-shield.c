@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
   key = **++argv;
   while (1) {
     fgets(cmd, BUFSIZE, stdin);
-    if (*cmd == key) { puts(cmd + 1); fflush(stdout); }
+    if (*cmd == key) { printf("%s", cmd + 1); fflush(stdout); }
   }
   return 0;
 }
