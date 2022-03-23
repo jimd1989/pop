@@ -36,7 +36,7 @@ The `semicolons` command allows multiple notes to be placed on the same line of 
 
     mkfifo performance
     boar <> performance
-    bang 142 12 a | pop score | semicolons > performance
+    bang 142 12 a - | pop score | semicolons > performance
     echo "L 0.5" > performance
     echo "P 2.0" > performance
     ...
