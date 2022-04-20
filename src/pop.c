@@ -57,7 +57,7 @@ void printLine(Scores *ss) {
     ss->next = ss->ix;
     fgets(ss->line, LINESIZE, ss->scores[ss->ix]);
   }
-  printf("%s\n", ss->line);
+  printf("%s", ss->line);
   fflush(stdout);
 }
 
